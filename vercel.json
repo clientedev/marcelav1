@@ -2,15 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "artifacts/api-server/src/index.ts",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "artifacts/alunos-dashboard/package.json",
+      "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist/public"
+        "distDir": "artifacts/alunos-dashboard/dist/public"
       }
+    },
+    {
+      "src": "artifacts/api-server/src/index.ts",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -20,7 +20,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "artifacts/alunos-dashboard/$1"
+      "dest": "/$1"
     }
   ]
 }
