@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import app from "./app";
 
 // For local development or non-serverless environments
