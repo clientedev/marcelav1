@@ -1,32 +1,4 @@
-// Auto-generated year data from Excel survey
-  export type YearKey = 'all' | '2025' | '2026';
-
-  export interface DataPoint { name: string; value: number; }
-
-  export interface YearData {
-    total: number;
-    totalMasculino: number;
-    totalFeminino: number;
-    mediaConducoes: number;
-    percentualComCond: number;
-    percentualTrabalham: number;
-    idadeMedia: number;
-    percentualSolteiros: number;
-    sexo: DataPoint[];
-    cursos: DataPoint[];
-    periodo: DataPoint[];
-    regiao: DataPoint[];
-    faixaEtaria: DataPoint[];
-    transporte: DataPoint[];
-    conducoes: DataPoint[];
-    escolaridade: DataPoint[];
-    trabalho: DataPoint[];
-    residencia: DataPoint[];
-    dificuldades: DataPoint[];
-    saude: DataPoint[];
-  }
-
-  export const YEAR_DATA: Record<YearKey, YearData> = {
+{
   "2025": {
     "total": 155,
     "totalMasculino": 97,
@@ -777,13 +749,4 @@
       }
     ]
   }
-};
-
-  export const YEAR_LABELS: Record<YearKey, string> = {
-    all: 'Todos os Anos',
-    '2025': '2025',
-    '2026': '2026',
-  };
-
-  export const YEAR_ORDER: YearKey[] = ['all', '2025', '2026'];
-  
+}

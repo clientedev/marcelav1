@@ -15,7 +15,7 @@ import {
   LabelList,
 } from "recharts";
 import { Sun, Moon, Printer, Bus, GraduationCap, MapPin, Users, BookOpen, Briefcase, Heart, AlertTriangle, Home } from "lucide-react";
-import { SEMESTER_DATA, SEMESTER_LABELS, SEMESTER_ORDER, type SemesterKey } from "@/data/semesterData";
+import { YEAR_DATA, YEAR_LABELS, YEAR_ORDER, type YearKey } from "@/data/semesterData";
 
 const CHART_COLORS = {
   blue: "#0079F2",
@@ -241,13 +241,13 @@ function KPICard({ label, value, suffix = "", accent, isDark, sub }: KPICardProp
 
 export default function Dashboard() {
   const [isDark, setIsDark] = useState(false);
-  const [semester, setSemester] = useState<SemesterKey>("all");
+  const [semester, setSemester] = useState<YearKey>("all");
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDark);
   }, [isDark]);
 
-  const d = SEMESTER_DATA[semester];
+  const d = YEAR_DATA[semester];
   const gridColor = isDark ? "rgba(255,255,255,0.06)" : "#e2e8f0";
   const tickColor = isDark ? "#64748b" : "#94a3b8";
 
@@ -280,7 +280,7 @@ export default function Dashboard() {
                 Pesquisa Social
               </h1>
               <p style={{ fontSize: 14, opacity: 0.75, marginTop: 4 }}>
-                Perfil socioeconômico · {d.total} alunos matriculados · {SEMESTER_LABELS[semester]}
+                Perfil socioeconômico · {d.total} alunos matriculados · {YEAR_LABELS[semester]}
               </p>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }} className="print:hidden">
@@ -311,36 +311,36 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Semester Selector */}
+          {/* Year Selector */}
           <div style={{ display: "flex", gap: 6, marginTop: 20, flexWrap: "wrap" }}>
-            {SEMESTER_ORDER.map(sem => (
+            {YEAR_ORDER.map(yr => (
               <button
-                key={sem}
-                onClick={() => setSemester(sem)}
+                key={yr}
+                onClick={() => setSemester(yr)}
                 style={{
                   padding: "6px 14px",
                   borderRadius: 999,
                   border: "1.5px solid",
-                  borderColor: semester === sem ? "white" : "rgba(255,255,255,0.35)",
-                  background: semester === sem ? "white" : "rgba(255,255,255,0.1)",
-                  color: semester === sem ? "#1e40af" : "white",
+                  borderColor: semester === yr ? "white" : "rgba(255,255,255,0.35)",
+                  background: semester === yr ? "white" : "rgba(255,255,255,0.1)",
+                  color: semester === yr ? "#1e40af" : "white",
                   fontSize: 12,
-                  fontWeight: semester === sem ? 700 : 500,
+                  fontWeight: semester === yr ? 700 : 500,
                   cursor: "pointer",
                   transition: "all 0.15s",
                   letterSpacing: "0.01em",
                 }}
               >
-                {SEMESTER_LABELS[sem]}
+                {YEAR_LABELS[yr]}
                 <span style={{
                   marginLeft: 6,
                   fontSize: 10,
-                  background: semester === sem ? "#1e40af" : "rgba(255,255,255,0.2)",
-                  color: semester === sem ? "white" : "rgba(255,255,255,0.85)",
+                  background: semester === yr ? "#1e40af" : "rgba(255,255,255,0.2)",
+                  color: semester === yr ? "white" : "rgba(255,255,255,0.85)",
                   borderRadius: 999,
                   padding: "1px 6px",
                 }}>
-                  {SEMESTER_DATA[sem].total}
+                  {YEAR_DATA[yr].total}
                 </span>
               </button>
             ))}
