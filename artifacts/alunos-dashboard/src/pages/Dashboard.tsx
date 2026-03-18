@@ -357,7 +357,7 @@ export default function Dashboard() {
           <KPICard label="Masculino / Feminino" value={`${d.totalMasculino} / ${d.totalFeminino}`} accent={CHART_COLORS.purple} isDark={isDark} />
           <KPICard label="Média de Conduções/dia" value={d.mediaConducoes} accent={CHART_COLORS.orange} isDark={isDark} sub="por aluno com transporte" />
           <KPICard label="Usam Transporte Pago" value={d.percentualComCond} suffix="%" accent={CHART_COLORS.teal} isDark={isDark} />
-          <KPICard label="Trabalham" value={d.percentualTrabalham} suffix="%" accent={CHART_COLORS.green} isDark={isDark} />
+
           <KPICard label="Idade Média" value={d.idadeMedia} suffix=" anos" accent={CHART_COLORS.indigo} isDark={isDark} />
           <KPICard label="Solteiros(as)" value={d.percentualSolteiros} suffix="%" accent={CHART_COLORS.pink} isDark={isDark} />
         </div>
