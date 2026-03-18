@@ -1,0 +1,1061 @@
+{
+  "1S2024": {
+    "total": 127,
+    "totalMasculino": 79,
+    "totalFeminino": 48,
+    "mediaConducoes": 3.2,
+    "percentualComCond": 92,
+    "percentualTrabalham": 0,
+    "idadeMedia": 17.4,
+    "percentualSolteiros": 98,
+    "sexo": [
+      {
+        "name": "Masculino",
+        "value": 79
+      },
+      {
+        "name": "Feminino",
+        "value": 48
+      }
+    ],
+    "cursos": [
+      {
+        "name": "CT - Téc. Dev. Sistemas",
+        "value": 62
+      },
+      {
+        "name": "CT - Téc. Logística",
+        "value": 33
+      },
+      {
+        "name": "CAI - Operador de Processos Logísticos",
+        "value": 32
+      }
+    ],
+    "periodo": [
+      {
+        "name": "Manhã",
+        "value": 65
+      },
+      {
+        "name": "Integral (Manhã e Tarde)",
+        "value": 32
+      },
+      {
+        "name": "Tarde",
+        "value": 30
+      }
+    ],
+    "regiao": [
+      {
+        "name": "Zona leste",
+        "value": 89
+      },
+      {
+        "name": "ABCD",
+        "value": 14
+      },
+      {
+        "name": "Zona norte",
+        "value": 9
+      },
+      {
+        "name": "Zona sul",
+        "value": 7
+      },
+      {
+        "name": "Zona oeste",
+        "value": 4
+      },
+      {
+        "name": "Outros",
+        "value": 2
+      },
+      {
+        "name": "Centro",
+        "value": 2
+      }
+    ],
+    "faixaEtaria": [
+      {
+        "name": "13–17",
+        "value": 87
+      },
+      {
+        "name": "18–24",
+        "value": 32
+      },
+      {
+        "name": "25–34",
+        "value": 8
+      },
+      {
+        "name": "35+",
+        "value": 0
+      }
+    ],
+    "transporte": [
+      {
+        "name": "Ônibus",
+        "value": 21
+      },
+      {
+        "name": "Metrô",
+        "value": 11
+      },
+      {
+        "name": "Trem",
+        "value": 9
+      },
+      {
+        "name": "Particular",
+        "value": 2
+      },
+      {
+        "name": "A pé",
+        "value": 1
+      },
+      {
+        "name": "Nenhum",
+        "value": 1
+      }
+    ],
+    "conducoes": [
+      {
+        "name": "1 cond.",
+        "value": 13
+      },
+      {
+        "name": "2 cond.",
+        "value": 48
+      },
+      {
+        "name": "3 cond.",
+        "value": 12
+      },
+      {
+        "name": "4 cond.",
+        "value": 19
+      },
+      {
+        "name": "5 cond.",
+        "value": 5
+      },
+      {
+        "name": "6 cond.",
+        "value": 17
+      },
+      {
+        "name": "7+ cond.",
+        "value": 3
+      }
+    ],
+    "escolaridade": [
+      {
+        "name": "Cursando 2º ano EM",
+        "value": 61
+      },
+      {
+        "name": "EM Completo",
+        "value": 32
+      },
+      {
+        "name": "Cursando 3º ano EM",
+        "value": 20
+      },
+      {
+        "name": "Cursando 1º ano EM",
+        "value": 7
+      },
+      {
+        "name": "Superior Completo",
+        "value": 5
+      },
+      {
+        "name": "Outro",
+        "value": 1
+      },
+      {
+        "name": "Cursando Superior",
+        "value": 1
+      }
+    ],
+    "trabalho": [
+      {
+        "name": "Sim",
+        "value": 0
+      },
+      {
+        "name": "Informal/Autônomo",
+        "value": 0
+      },
+      {
+        "name": "Não",
+        "value": 127
+      }
+    ],
+    "residencia": [],
+    "dificuldades": [],
+    "saude": []
+  },
+  "1S2025": {
+    "total": 6,
+    "totalMasculino": 5,
+    "totalFeminino": 1,
+    "mediaConducoes": 1.8,
+    "percentualComCond": 100,
+    "percentualTrabalham": 33,
+    "idadeMedia": 20.5,
+    "percentualSolteiros": 100,
+    "sexo": [
+      {
+        "name": "Masculino",
+        "value": 5
+      },
+      {
+        "name": "Feminino",
+        "value": 1
+      }
+    ],
+    "cursos": [
+      {
+        "name": "CT - Téc. Logística",
+        "value": 6
+      }
+    ],
+    "periodo": [
+      {
+        "name": "Tarde",
+        "value": 6
+      }
+    ],
+    "regiao": [
+      {
+        "name": "Zona leste",
+        "value": 5
+      },
+      {
+        "name": "Zona norte",
+        "value": 1
+      }
+    ],
+    "faixaEtaria": [
+      {
+        "name": "13–17",
+        "value": 3
+      },
+      {
+        "name": "18–24",
+        "value": 2
+      },
+      {
+        "name": "25–34",
+        "value": 0
+      },
+      {
+        "name": "35+",
+        "value": 1
+      }
+    ],
+    "transporte": [
+      {
+        "name": "Ônibus",
+        "value": 5
+      },
+      {
+        "name": "Trem",
+        "value": 1
+      },
+      {
+        "name": "Metrô",
+        "value": 1
+      }
+    ],
+    "conducoes": [
+      {
+        "name": "1 cond.",
+        "value": 3
+      },
+      {
+        "name": "2 cond.",
+        "value": 2
+      },
+      {
+        "name": "4 cond.",
+        "value": 1
+      }
+    ],
+    "escolaridade": [
+      {
+        "name": "Cursando 3º ano EM",
+        "value": 3
+      },
+      {
+        "name": "EM Completo",
+        "value": 2
+      },
+      {
+        "name": "Cursando 2º ano EM",
+        "value": 1
+      }
+    ],
+    "trabalho": [
+      {
+        "name": "Sim",
+        "value": 2
+      },
+      {
+        "name": "Informal/Autônomo",
+        "value": 0
+      },
+      {
+        "name": "Não",
+        "value": 4
+      }
+    ],
+    "residencia": [
+      {
+        "name": "Alugada",
+        "value": 3
+      },
+      {
+        "name": "Própria",
+        "value": 3
+      }
+    ],
+    "dificuldades": [
+      {
+        "name": "Outras",
+        "value": 2
+      },
+      {
+        "name": "Nenhuma",
+        "value": 2
+      },
+      {
+        "name": "Distância residência e SENAI",
+        "value": 1
+      },
+      {
+        "name": "Pagamento das conduções",
+        "value": 1
+      },
+      {
+        "name": "Alimentação",
+        "value": 1
+      }
+    ],
+    "saude": [
+      {
+        "name": "Ansiedade",
+        "value": 2
+      },
+      {
+        "name": "Depressão",
+        "value": 1
+      },
+      {
+        "name": "Outra",
+        "value": 1
+      }
+    ]
+  },
+  "2S2025": {
+    "total": 22,
+    "totalMasculino": 13,
+    "totalFeminino": 9,
+    "mediaConducoes": 3.7,
+    "percentualComCond": 73,
+    "percentualTrabalham": 18,
+    "idadeMedia": 21.5,
+    "percentualSolteiros": 91,
+    "sexo": [
+      {
+        "name": "Masculino",
+        "value": 13
+      },
+      {
+        "name": "Feminino",
+        "value": 9
+      }
+    ],
+    "cursos": [
+      {
+        "name": "CT - Téc. Logística",
+        "value": 22
+      }
+    ],
+    "periodo": [
+      {
+        "name": "Tarde",
+        "value": 22
+      }
+    ],
+    "regiao": [
+      {
+        "name": "Zona leste",
+        "value": 16
+      },
+      {
+        "name": "ABCD",
+        "value": 4
+      },
+      {
+        "name": "Zona norte",
+        "value": 1
+      },
+      {
+        "name": "Centro",
+        "value": 1
+      }
+    ],
+    "faixaEtaria": [
+      {
+        "name": "13–17",
+        "value": 12
+      },
+      {
+        "name": "18–24",
+        "value": 5
+      },
+      {
+        "name": "25–34",
+        "value": 2
+      },
+      {
+        "name": "35+",
+        "value": 3
+      }
+    ],
+    "transporte": [
+      {
+        "name": "Ônibus",
+        "value": 18
+      },
+      {
+        "name": "Metrô",
+        "value": 10
+      },
+      {
+        "name": "Trem",
+        "value": 7
+      },
+      {
+        "name": "Particular",
+        "value": 4
+      }
+    ],
+    "conducoes": [
+      {
+        "name": "1 cond.",
+        "value": 1
+      },
+      {
+        "name": "2 cond.",
+        "value": 8
+      },
+      {
+        "name": "3 cond.",
+        "value": 2
+      },
+      {
+        "name": "4 cond.",
+        "value": 3
+      },
+      {
+        "name": "6 cond.",
+        "value": 1
+      },
+      {
+        "name": "7+ cond.",
+        "value": 1
+      }
+    ],
+    "escolaridade": [
+      {
+        "name": "Cursando 2º ano EM",
+        "value": 8
+      },
+      {
+        "name": "Cursando 3º ano EM",
+        "value": 7
+      },
+      {
+        "name": "EM Completo",
+        "value": 5
+      },
+      {
+        "name": "Superior Completo",
+        "value": 2
+      }
+    ],
+    "trabalho": [
+      {
+        "name": "Sim",
+        "value": 3
+      },
+      {
+        "name": "Informal/Autônomo",
+        "value": 1
+      },
+      {
+        "name": "Não",
+        "value": 18
+      }
+    ],
+    "residencia": [
+      {
+        "name": "Alugada",
+        "value": 9
+      },
+      {
+        "name": "Cedida",
+        "value": 2
+      },
+      {
+        "name": "Própria",
+        "value": 11
+      }
+    ],
+    "dificuldades": [
+      {
+        "name": "Nenhuma",
+        "value": 9
+      },
+      {
+        "name": "Distância residência e SENAI",
+        "value": 8
+      },
+      {
+        "name": "Pagamento das conduções",
+        "value": 5
+      },
+      {
+        "name": "Financeira",
+        "value": 4
+      },
+      {
+        "name": "Alimentação",
+        "value": 3
+      },
+      {
+        "name": "Outras",
+        "value": 2
+      },
+      {
+        "name": "Distância trabalho e SENAI",
+        "value": 2
+      },
+      {
+        "name": "Manter boa frequência às aulas",
+        "value": 2
+      },
+      {
+        "name": "Cumprir horário de início ou término das aulas",
+        "value": 1
+      }
+    ],
+    "saude": [
+      {
+        "name": "Ansiedade",
+        "value": 3
+      },
+      {
+        "name": "Depressão",
+        "value": 2
+      },
+      {
+        "name": "Outra",
+        "value": 2
+      },
+      {
+        "name": "Pressão alta",
+        "value": 2
+      },
+      {
+        "name": "Asma ou bronquite",
+        "value": 1
+      },
+      {
+        "name": "Transtorno bipolar",
+        "value": 1
+      }
+    ]
+  },
+  "2S2026": {
+    "total": 84,
+    "totalMasculino": 55,
+    "totalFeminino": 28,
+    "mediaConducoes": 3.3,
+    "percentualComCond": 70,
+    "percentualTrabalham": 33,
+    "idadeMedia": 17.2,
+    "percentualSolteiros": 98,
+    "sexo": [
+      {
+        "name": "Feminino",
+        "value": 28
+      },
+      {
+        "name": "Masculino",
+        "value": 55
+      },
+      {
+        "name": "Não binário",
+        "value": 1
+      }
+    ],
+    "cursos": [
+      {
+        "name": "CT - Téc. Dev. Sistemas",
+        "value": 61
+      },
+      {
+        "name": "CT - Téc. Logística",
+        "value": 23
+      }
+    ],
+    "periodo": [
+      {
+        "name": "Integral (Manhã e Tarde)",
+        "value": 60
+      },
+      {
+        "name": "Manhã",
+        "value": 24
+      }
+    ],
+    "regiao": [
+      {
+        "name": "Zona leste",
+        "value": 64
+      },
+      {
+        "name": "Zona norte",
+        "value": 8
+      },
+      {
+        "name": "Zona sul",
+        "value": 4
+      },
+      {
+        "name": "Zona oeste",
+        "value": 4
+      },
+      {
+        "name": "ABCD",
+        "value": 3
+      },
+      {
+        "name": "Outros",
+        "value": 1
+      }
+    ],
+    "faixaEtaria": [
+      {
+        "name": "13–17",
+        "value": 69
+      },
+      {
+        "name": "18–24",
+        "value": 10
+      },
+      {
+        "name": "25–34",
+        "value": 5
+      },
+      {
+        "name": "35+",
+        "value": 0
+      }
+    ],
+    "transporte": [
+      {
+        "name": "Ônibus",
+        "value": 11
+      },
+      {
+        "name": "Metrô",
+        "value": 6
+      },
+      {
+        "name": "A pé",
+        "value": 5
+      },
+      {
+        "name": "Trem",
+        "value": 3
+      }
+    ],
+    "conducoes": [
+      {
+        "name": "1 cond.",
+        "value": 14
+      },
+      {
+        "name": "2 cond.",
+        "value": 14
+      },
+      {
+        "name": "3 cond.",
+        "value": 7
+      },
+      {
+        "name": "4 cond.",
+        "value": 11
+      },
+      {
+        "name": "5 cond.",
+        "value": 3
+      },
+      {
+        "name": "6 cond.",
+        "value": 6
+      },
+      {
+        "name": "7+ cond.",
+        "value": 4
+      }
+    ],
+    "escolaridade": [
+      {
+        "name": "Cursando 2º ano EM",
+        "value": 63
+      },
+      {
+        "name": "EM Completo",
+        "value": 15
+      },
+      {
+        "name": "Cursando 3º ano EM",
+        "value": 4
+      },
+      {
+        "name": "Cursando Superior",
+        "value": 1
+      },
+      {
+        "name": "EM Incompleto",
+        "value": 1
+      }
+    ],
+    "trabalho": [
+      {
+        "name": "Sim",
+        "value": 28
+      },
+      {
+        "name": "Informal/Autônomo",
+        "value": 0
+      },
+      {
+        "name": "Não",
+        "value": 56
+      }
+    ],
+    "residencia": [
+      {
+        "name": "Própria",
+        "value": 1
+      }
+    ],
+    "dificuldades": [
+      {
+        "name": "Distância residência e SENAI",
+        "value": 1
+      }
+    ],
+    "saude": [
+      {
+        "name": "Não",
+        "value": 1
+      }
+    ]
+  },
+  "all": {
+    "total": 239,
+    "totalMasculino": 152,
+    "totalFeminino": 86,
+    "mediaConducoes": 3.2,
+    "percentualComCond": 83,
+    "percentualTrabalham": 14,
+    "idadeMedia": 17.8,
+    "percentualSolteiros": 97,
+    "sexo": [
+      {
+        "name": "Feminino",
+        "value": 86
+      },
+      {
+        "name": "Masculino",
+        "value": 152
+      },
+      {
+        "name": "Não binário",
+        "value": 1
+      }
+    ],
+    "cursos": [
+      {
+        "name": "CT - Téc. Dev. Sistemas",
+        "value": 123
+      },
+      {
+        "name": "CT - Téc. Logística",
+        "value": 84
+      },
+      {
+        "name": "CAI - Operador de Processos Logísticos",
+        "value": 32
+      }
+    ],
+    "periodo": [
+      {
+        "name": "Integral (Manhã e Tarde)",
+        "value": 92
+      },
+      {
+        "name": "Manhã",
+        "value": 89
+      },
+      {
+        "name": "Tarde",
+        "value": 58
+      }
+    ],
+    "regiao": [
+      {
+        "name": "Zona leste",
+        "value": 174
+      },
+      {
+        "name": "ABCD",
+        "value": 21
+      },
+      {
+        "name": "Zona norte",
+        "value": 19
+      },
+      {
+        "name": "Zona sul",
+        "value": 11
+      },
+      {
+        "name": "Zona oeste",
+        "value": 8
+      },
+      {
+        "name": "Centro",
+        "value": 3
+      },
+      {
+        "name": "Outros",
+        "value": 3
+      }
+    ],
+    "faixaEtaria": [
+      {
+        "name": "13–17",
+        "value": 171
+      },
+      {
+        "name": "18–24",
+        "value": 49
+      },
+      {
+        "name": "25–34",
+        "value": 15
+      },
+      {
+        "name": "35+",
+        "value": 4
+      }
+    ],
+    "transporte": [
+      {
+        "name": "Ônibus",
+        "value": 55
+      },
+      {
+        "name": "Metrô",
+        "value": 28
+      },
+      {
+        "name": "Trem",
+        "value": 20
+      },
+      {
+        "name": "Particular",
+        "value": 6
+      },
+      {
+        "name": "A pé",
+        "value": 6
+      },
+      {
+        "name": "Nenhum",
+        "value": 1
+      }
+    ],
+    "conducoes": [
+      {
+        "name": "1 cond.",
+        "value": 31
+      },
+      {
+        "name": "2 cond.",
+        "value": 72
+      },
+      {
+        "name": "3 cond.",
+        "value": 21
+      },
+      {
+        "name": "4 cond.",
+        "value": 34
+      },
+      {
+        "name": "5 cond.",
+        "value": 8
+      },
+      {
+        "name": "6 cond.",
+        "value": 24
+      },
+      {
+        "name": "7+ cond.",
+        "value": 8
+      }
+    ],
+    "escolaridade": [
+      {
+        "name": "Cursando 2º ano EM",
+        "value": 133
+      },
+      {
+        "name": "EM Completo",
+        "value": 54
+      },
+      {
+        "name": "Cursando 3º ano EM",
+        "value": 34
+      },
+      {
+        "name": "Superior Completo",
+        "value": 7
+      },
+      {
+        "name": "Cursando 1º ano EM",
+        "value": 7
+      },
+      {
+        "name": "Cursando Superior",
+        "value": 2
+      },
+      {
+        "name": "EM Incompleto",
+        "value": 1
+      },
+      {
+        "name": "Outro",
+        "value": 1
+      }
+    ],
+    "trabalho": [
+      {
+        "name": "Sim",
+        "value": 33
+      },
+      {
+        "name": "Informal/Autônomo",
+        "value": 1
+      },
+      {
+        "name": "Não",
+        "value": 205
+      }
+    ],
+    "residencia": [
+      {
+        "name": "Própria",
+        "value": 15
+      },
+      {
+        "name": "Alugada",
+        "value": 12
+      },
+      {
+        "name": "Cedida",
+        "value": 2
+      }
+    ],
+    "dificuldades": [
+      {
+        "name": "Nenhuma",
+        "value": 11
+      },
+      {
+        "name": "Distância residência e SENAI",
+        "value": 10
+      },
+      {
+        "name": "Pagamento das conduções",
+        "value": 6
+      },
+      {
+        "name": "Alimentação",
+        "value": 4
+      },
+      {
+        "name": "Financeira",
+        "value": 4
+      },
+      {
+        "name": "Outras",
+        "value": 4
+      },
+      {
+        "name": "Distância trabalho e SENAI",
+        "value": 2
+      },
+      {
+        "name": "Manter boa frequência às aulas",
+        "value": 2
+      },
+      {
+        "name": "Cumprir horário de início ou término das aulas",
+        "value": 1
+      }
+    ],
+    "saude": [
+      {
+        "name": "Ansiedade",
+        "value": 5
+      },
+      {
+        "name": "Depressão",
+        "value": 3
+      },
+      {
+        "name": "Outra",
+        "value": 3
+      },
+      {
+        "name": "Pressão alta",
+        "value": 2
+      },
+      {
+        "name": "Não",
+        "value": 1
+      },
+      {
+        "name": "Asma ou bronquite",
+        "value": 1
+      },
+      {
+        "name": "Transtorno bipolar",
+        "value": 1
+      }
+    ]
+  }
+}
