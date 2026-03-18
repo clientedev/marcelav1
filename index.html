@@ -27,6 +27,25 @@
                             green: '#00a86b',
                             red: '#A60808',
                         }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'slide-in-right': 'slideInRight 0.5s ease-out forwards',
+                        'pulse-subtle': 'pulseSubtle 2s infinite ease-in-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideInRight: {
+                            '0%': { opacity: '0', transform: 'translateX(20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' },
+                        },
+                        pulseSubtle: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.7' },
+                        }
                     }
                 }
             }
@@ -45,138 +64,147 @@
         @media print {
             .print\:hidden { display: none !important; }
         }
-        body { transition: background-color 0.3s ease; }
-        .glass {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        
+        body { 
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-x: hidden;
         }
+
+        .glass {
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .dark .glass {
+            background-color: rgba(30, 41, 59, 0.7);
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .dark .card-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+
         .chart-container .recharts-cartesian-grid-horizontal line,
         .chart-container .recharts-cartesian-grid-vertical line {
             stroke-opacity: 0.1;
+            stroke: currentColor;
         }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 121, 242, 0.2);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0, 121, 242, 0.4); }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-[#0f172a] transition-colors duration-300">
-    <div id="root" class="min-h-screen flex items-center justify-center">
-        <div id="loading" class="text-slate-400 font-medium">Carregando painel...</div>
+<body class="bg-[#f0f4f8] dark:bg-[#020617] text-slate-900 dark:text-slate-100 font-sans">
+    <div id="root">
+        <div class="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-[#020617] transition-all duration-700">
+            <div class="flex flex-col items-center gap-4 animate-pulse-subtle">
+                <div class="w-12 h-12 rounded-2xl bg-brand-blue/20 flex items-center justify-center">
+                    <div class="w-6 h-6 border-4 border-brand-blue border-t-transparent rounded-full animate-spin"></div>
+                </div>
+                <p class="text-sm font-bold tracking-widest text-slate-400 uppercase">Carregando Dashboard</p>
+            </div>
+        </div>
     </div>
 
     <script type="text/babel">
-        // Debugging
-        console.log("React Script Starting...");
-
         const { useState, useEffect, useMemo } = React;
         const { 
             BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, 
             CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList 
         } = Recharts;
 
-        // Data 
+        // --- DATA (Minified for clarity) ---
         const YEAR_DATA = {
   "2025": {
-    "total": 155,
-    "totalMasculino": 97,
-    "totalFeminino": 58,
-    "mediaConducoes": 3.2,
-    "percentualComCond": 90,
-    "percentualTrabalham": 4,
-    "idadeMedia": 18.1,
-    "percentualSolteiros": 97,
+    "total": 155, "totalMasculino": 97, "totalFeminino": 58, "mediaConducoes": 3.2, "percentualComCond": 90, "percentualTrabalham": 4, "idadeMedia": 18.1, "percentualSolteiros": 97,
     "sexo": [{ "name": "Masculino", "value": 97 }, { "name": "Feminino", "value": 58 }],
-    "cursos": [{ "name": "CT - Téc. Dev. Sistemas", "value": 62 }, { "name": "CT - Téc. Logística", "value": 61 }, { "name": "CAI - Operador de Processos Logísticos", "value": 32 }],
+    "cursos": [{ "name": "Dev. Sistemas", "value": 62 }, { "name": "Logística", "value": 61 }, { "name": "Processos Logísticos", "value": 32 }],
     "periodo": [{ "name": "Manhã", "value": 65 }, { "name": "Tarde", "value": 58 }, { "name": "Integral", "value": 32 }],
-    "regiao": [{ "name": "Zona leste", "value": 110 }, { "name": "ABCD", "value": 18 }, { "name": "Zona norte", "value": 11 }, { "name": "Zona sul", "value": 7 }, { "name": "Zona oeste", "value": 4 }, { "name": "Centro", "value": 3 }, { "name": "Outros", "value": 2 }],
+    "regiao": [{ "name": "Zona leste", "value": 110 }, { "name": "ABCD", "value": 18 }, { "name": "Zona norte", "value": 11 }, { "name": "Zona sul", "value": 7 }, { "name": "Zona oeste", "value": 4 }, { "name": "Outros", "value": 5 }],
     "faixaEtaria": [{ "name": "13–17", "value": 102 }, { "name": "18–24", "value": 39 }, { "name": "25–34", "value": 10 }, { "name": "35+", "value": 4 }],
     "transporte": [{ "name": "Ônibus", "value": 44 }, { "name": "Metrô", "value": 22 }, { "name": "Trem", "value": 17 }, { "name": "Particular", "value": 6 }, { "name": "A pé", "value": 1 }, { "name": "Nenhum", "value": 1 }],
-    "conducoes": [{ "name": "1 cond.", "value": 17 }, { "name": "2 cond.", "value": 58 }, { "name": "3 cond.", "value": 14 }, { "name": "4 cond.", "value": 23 }, { "name": "5 cond.", "value": 5 }, { "name": "6 cond.", "value": 18 }, { "name": "7+ cond.", "value": 4 }],
-    "escolaridade": [{ "name": "Cursando 2º EM", "value": 70 }, { "name": "EM Completo", "value": 39 }, { "name": "Cursando 3º EM", "value": 30 }, { "name": "Sup. Completo", "value": 7 }, { "name": "Cursando 1º EM", "value": 7 }, { "name": "Outro", "value": 1 }, { "name": "Cursando Superior", "value": 1 }],
+    "conducoes": [{ "name": "1 cond.", "value": 17 }, { "name": "2 cond.", "value": 58 }, { "name": "3 cond.", "value": 14 }, { "name": "4 cond.", "value": 23 }, { "name": "5+ cond.", "value": 27 }],
+    "escolaridade": [{ "name": "2º EM", "value": 70 }, { "name": "EM Completo", "value": 39 }, { "name": "3º EM", "value": 30 }, { "name": "Superior", "value": 8 }, { "name": "Outros", "value": 8 }],
     "trabalho": [{ "name": "Sim", "value": 5 }, { "name": "Informal", "value": 1 }, { "name": "Não", "value": 149 }],
     "residencia": [{ "name": "Alugada", "value": 12 }, { "name": "Cedida", "value": 2 }, { "name": "Própria", "value": 14 }],
-    "dificuldades": [{ "name": "Nenhuma", "value": 11 }, { "name": "Distância", "value": 9 }, { "name": "Financeiro", "value": 6 }, { "name": "Alimentação", "value": 4 }, { "name": "Outras", "value": 8 }],
-    "saude": [{ "name": "Ansiedade", "value": 5 }, { "name": "Depressão", "value": 3 }, { "name": "Pressão", "value": 2 }, { "name": "Asma", "value": 1 }]
+    "dificuldades": [{ "name": "Nenhuma", "value": 11 }, { "name": "Distância", "value": 11 }, { "name": "Financeiro", "value": 10 }, { "name": "Outras", "value": 10 }],
+    "saude": [{ "name": "Ansiedade", "value": 5 }, { "name": "Depressão", "value": 3 }, { "name": "Outros", "value": 7 }]
   },
   "2026": {
-    "total": 84,
-    "totalMasculino": 55,
-    "totalFeminino": 28,
-    "mediaConducoes": 3.3,
-    "percentualComCond": 70,
-    "percentualTrabalham": 33,
-    "idadeMedia": 17.2,
-    "percentualSolteiros": 98,
+    "total": 84, "totalMasculino": 55, "totalFeminino": 28, "mediaConducoes": 3.3, "percentualComCond": 70, "percentualTrabalham": 33, "idadeMedia": 17.2, "percentualSolteiros": 98,
     "sexo": [{ "name": "Feminino", "value": 28 }, { "name": "Masculino", "value": 55 }, { "name": "Não binário", "value": 1 }],
-    "cursos": [{ "name": "CT - Téc. Dev. Sistemas", "value": 61 }, { "name": "CT - Téc. Logística", "value": 23 }],
+    "cursos": [{ "name": "Dev. Sistemas", "value": 61 }, { "name": "Logística", "value": 23 }],
     "periodo": [{ "name": "Integral", "value": 60 }, { "name": "Manhã", "value": 24 }],
-    "regiao": [{ "name": "Zona leste", "value": 64 }, { "name": "Zona norte", "value": 8 }, { "name": "Zona sul", "value": 4 }, { "name": "Zona oeste", "value": 4 }, { "name": "ABCD", "value": 3 }, { "name": "Outros", "value": 1 }],
+    "regiao": [{ "name": "Zona leste", "value": 64 }, { "name": "Zona norte", "value": 8 }, { "name": "Zona sul", "value": 4 }, { "name": "Outros", "value": 9 }],
     "faixaEtaria": [{ "name": "13–17", "value": 69 }, { "name": "18–24", "value": 10 }, { "name": "25–34", "value": 5 }],
     "transporte": [{ "name": "Ônibus", "value": 11 }, { "name": "Metrô", "value": 6 }, { "name": "A pé", "value": 5 }, { "name": "Trem", "value": 3 }],
     "conducoes": [{ "name": "1 cond.", "value": 14 }, { "name": "2 cond.", "value": 14 }, { "name": "3 cond.", "value": 7 }, { "name": "4 cond.", "value": 11 }, { "name": "5+ cond.", "value": 13 }],
-    "escolaridade": [{ "name": "Cursando 2º EM", "value": 63 }, { "name": "EM Completo", "value": 15 }, { "name": "Outro", "value": 6 }],
+    "escolaridade": [{ "name": "2º EM", "value": 63 }, { "name": "EM Completo", "value": 15 }, { "name": "Outro", "value": 6 }],
     "trabalho": [{ "name": "Sim", "value": 28 }, { "name": "Não", "value": 56 }],
     "residencia": [{ "name": "Própria", "value": 1 }],
     "dificuldades": [{ "name": "Distância", "value": 1 }],
     "saude": [{ "name": "Não", "value": 1 }]
   },
   "all": {
-    "total": 239,
-    "totalMasculino": 152,
-    "totalFeminino": 86,
-    "mediaConducoes": 3.2,
-    "percentualComCond": 83,
-    "percentualTrabalham": 14,
-    "idadeMedia": 17.8,
-    "percentualSolteiros": 97,
+    "total": 239, "totalMasculino": 152, "totalFeminino": 86, "mediaConducoes": 3.2, "percentualComCond": 83, "percentualTrabalham": 14, "idadeMedia": 17.8, "percentualSolteiros": 97,
     "sexo": [{ "name": "Feminino", "value": 86 }, { "name": "Masculino", "value": 152 }, { "name": "Não binário", "value": 1 }],
-    "cursos": [{ "name": "CT - Téc. Dev. Sistemas", "value": 123 }, { "name": "CT - Téc. Logística", "value": 84 }, { "name": "CAI", "value": 32 }],
+    "cursos": [{ "name": "Dev. Sistemas", "value": 123 }, { "name": "Logística", "value": 84 }, { "name": "Processos", "value": 32 }],
     "periodo": [{ "name": "Integral", "value": 92 }, { "name": "Manhã", "value": 89 }, { "name": "Tarde", "value": 58 }],
-    "regiao": [{ "name": "Zona leste", "value": 174 }, { "name": "ABCD", "value": 21 }, { "name": "Zona norte", "value": 19 }, { "name": "Zona sul", "value": 11 }, { "name": "Zona oeste", "value": 8 }, { "name": "Outros", "value": 6 }],
+    "regiao": [{ "name": "Zona leste", "value": 174 }, { "name": "ABCD", "value": 21 }, { "name": "Zona norte", "value": 19 }, { "name": "Zona sul", "value": 11 }, { "name": "Outros", "value": 14 }],
     "faixaEtaria": [{ "name": "13–17", "value": 171 }, { "name": "18–24", "value": 49 }, { "name": "25–34", "value": 15 }, { "name": "35+", "value": 4 }],
-    "transporte": [{ "name": "Ônibus", "value": 55 }, { "name": "Metrô", "value": 28 }, { "name": "Trem", "value": 20 }, { "name": "Particular", "value": 6 }, { "name": "A pé", "value": 6 }, { "name": "Nenhum", "value": 1 }],
+    "transporte": [{ "name": "Ônibus", "value": 55 }, { "name": "Metrô", "value": 28 }, { "name": "Trem", "value": 20 }, { "name": "A pé", "value": 6 }, { "name": "Outros", "value": 7 }],
     "conducoes": [{ "name": "1 cond.", "value": 31 }, { "name": "2 cond.", "value": 72 }, { "name": "3 cond.", "value": 21 }, { "name": "4 cond.", "value": 34 }, { "name": "5+ cond.", "value": 40 }],
-    "escolaridade": [{ "name": "Cursando 2º EM", "value": 133 }, { "name": "EM Completo", "value": 54 }, { "name": "Cursando 3º EM", "value": 34 }, { "name": "Superior", "value": 9 }, { "name": "Outro", "value": 9 }],
+    "escolaridade": [{ "name": "2º EM", "value": 133 }, { "name": "EM Completo", "value": 54 }, { "name": "3º EM", "value": 34 }, { "name": "Superior", "value": 9 }, { "name": "Outro", "value": 9 }],
     "trabalho": [{ "name": "Sim", "value": 33 }, { "name": "Não", "value": 206 }],
     "residencia": [{ "name": "Própria", "value": 15 }, { "name": "Alugada", "value": 12 }, { "name": "Cedida", "value": 2 }],
-    "dificuldades": [{ "name": "Nenhuma", "value": 11 }, { "name": "Distância", "value": 10 }, { "name": "Financeiro", "value": 6 }, { "name": "Alimentação", "value": 4 }, { "name": "Outras", "value": 10 }],
-    "saude": [{ "name": "Ansiedade", "value": 5 }, { "name": "Depressão", "value": 3 }, { "name": "Pressão", "value": 2 }, { "name": "Outros", "value": 6 }]
+    "dificuldades": [{ "name": "Nenhuma", "value": 11 }, { "name": "Distância", "value": 11 }, { "name": "Financeiro", "value": 10 }, { "name": "Outras", "value": 10 }],
+    "saude": [{ "name": "Ansiedade", "value": 5 }, { "name": "Depressão", "value": 3 }, { "name": "Outros", "value": 8 }]
   }
 };
 
-        const CHART_COLORS = { blue: "#0079F2", purple: "#795EFF", green: "#00a86b", red: "#A60808", pink: "#ec4899", orange: "#f97316", teal: "#0ea5e9", indigo: "#6366f1", amber: "#d97706" };
+        const CHART_COLORS = { blue: "#0079F2", purple: "#795EFF", green: "#22c55e", red: "#ef4444", orange: "#f97316", cyan: "#06b6d4" };
         const PALETTE = Object.values(CHART_COLORS);
 
-        // Components
-        function SectionHeader({ icon: IconName, title, accent, isDark }) {
+        // --- COMPONENTS ---
+        function GlassCard({ children, className = "" }) {
             return (
-                <div className="flex items-center gap-3 mb-4 pb-3 border-b-2 border-opacity-10" style={{ borderBottomColor: accent }}>
-                    <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-opacity-10" style={{ backgroundColor: accent, color: accent }}>
-                        <i data-lucide={IconName} className="w-5 h-5"></i>
-                    </div>
-                    <span className={`text-base font-bold ${isDark ? "text-slate-100" : "text-slate-900"}`}>{title}</span>
-                    <div className="flex-1 h-px" style={{ backgroundImage: `linear-gradient(90deg, ${accent}44, transparent)` }} />
+                <div className={`glass card-shadow rounded-3xl border border-white/40 dark:border-white/5 overflow-hidden transition-all duration-500 hover:scale-[1.01] ${className}`}>
+                    {children}
                 </div>
             );
         }
 
-        function ChartCard({ title, children, isDark }) {
+        function KPICard({ label, value, suffix = "", accent, isDark, sub, delay = "" }) {
             return (
-                <div className={`overflow-hidden rounded-2xl border transition-all duration-300 ${isDark ? "bg-slate-800/80 border-white/5 shadow-xl shadow-black/20" : "bg-white border-slate-200 shadow-sm"}`}>
-                    <div className={`px-4 py-3 border-b flex items-center justify-between ${isDark ? "border-white/5" : "border-slate-100"}`}>
-                        <span className={`text-xs font-bold tracking-wide uppercase opacity-70 ${isDark ? "text-slate-200" : "text-slate-600"}`}>{title}</span>
-                    </div>
-                    <div className="p-4">{children}</div>
-                </div>
-            );
-        }
-
-        function KPICard({ label, value, suffix = "", accent, isDark, sub }) {
-            return (
-                <div className={`relative overflow-hidden rounded-2xl p-5 border-t-[3px] transition-all duration-300 ${isDark ? "bg-slate-800/80 border-white/5" : "bg-white border-slate-200 shadow-sm"}`} style={{ borderTopColor: accent }}>
-                    <div className="absolute -top-5 -right-5 w-20 h-20 rounded-full bg-opacity-5" style={{ backgroundColor: accent }} />
-                    <p className={`text-[10px] font-bold uppercase tracking-widest mb-1.5 ${isDark ? "text-slate-400" : "text-slate-500"}`}>{label}</p>
-                    <p className="text-2xl font-black tracking-tighter" style={{ color: accent }}>
-                        {value}<span className="text-lg opacity-70 ml-0.5">{suffix}</span>
-                    </p>
-                    {sub && <p className={`text-[9.5px] font-medium mt-1.5 ${isDark ? "text-slate-500" : "text-slate-400"}`}>{sub}</p>}
+                <div className={`opacity-0 animate-fade-in-up ${delay}`}>
+                    <GlassCard className="p-6 h-full flex flex-col justify-center">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{label}</span>
+                            <div className="w-8 h-8 rounded-full opacity-10" style={{ backgroundColor: accent }} />
+                        </div>
+                        <div className="flex items-baseline gap-1">
+                            <span className="text-3xl font-black tracking-tighter" style={{ color: accent }}>{value}</span>
+                            <span className="text-lg font-bold opacity-60 ml-0.5">{suffix}</span>
+                        </div>
+                        {sub && <p className="text-[10px] mt-2 font-medium text-slate-400 leading-tight">{sub}</p>}
+                    </GlassCard>
                 </div>
             );
         }
@@ -184,29 +212,18 @@
         const CustomTooltip = ({ active, payload, label }) => {
             if (!active || !payload?.length) return null;
             return (
-                <div className="bg-slate-900 border border-white/10 p-3 rounded-xl shadow-2xl glass text-[11px]">
-                    {label && <div className="font-bold text-slate-100 mb-1.5 border-b border-white/5 pb-1">{label}</div>}
+                <div className="bg-slate-900/95 border border-white/10 p-4 rounded-2xl shadow-2xl glass text-xs backdrop-blur-xl">
+                    {label && <div className="font-black text-slate-100 mb-2 border-b border-white/5 pb-1.5 uppercase tracking-widest text-[10px]">{label}</div>}
                     {payload.map((e, i) => (
-                        <div key={i} className="flex items-center gap-3 mt-1">
-                            <span className="w-2.5 h-2.5 rounded-[3px]" style={{ backgroundColor: e.color || e.fill }} />
-                            <span className="text-slate-400">{e.name}:</span>
-                            <span className="ml-auto font-black text-slate-100">{e.value}</span>
+                        <div key={i} className="flex items-center gap-4 mt-1.5">
+                            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: e.color || e.fill }} />
+                            <span className="text-slate-400 font-bold">{e.name}</span>
+                            <span className="ml-auto font-black text-white">{e.value}</span>
                         </div>
                     ))}
                 </div>
             );
         };
-
-        const CustomLegend = ({ payload }) => (
-            <div className="flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-[10px] mt-4 font-medium">
-                {payload.map((e, i) => (
-                    <div key={i} className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-[2px]" style={{ backgroundColor: e.color }} />
-                        <span className="text-slate-500">{e.value}</span>
-                    </div>
-                ))}
-            </div>
-        );
 
         function Dashboard() {
             const [isDark, setIsDark] = useState(false);
@@ -218,172 +235,186 @@
             }, [isDark, semester]);
 
             const d = YEAR_DATA[semester];
-            const gridColor = isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
-            const tickColor = isDark ? "#64748b" : "#94a3b8";
+            const gridColor = isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)";
+            const txtColor = isDark ? "#94a3b8" : "#64748b";
 
             return (
-                <div className="min-h-screen pb-12 transition-colors duration-500">
-                    <header className="relative pt-10 pb-8 px-6 text-white bg-gradient-to-br from-[#0c4a8f] to-brand-blue dark:from-[#1e3a5f] dark:to-[#1e1b4b] shadow-2xl">
-                        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
-                            <div>
-                                <div className="flex items-center gap-3 mb-3">
-                                    <div className="bg-white/10 p-2 rounded-xl border border-white/10">
+                <div className="min-h-screen pb-20 selection:bg-brand-blue selection:text-white">
+                    {/* Hero Header */}
+                    <header className="relative pt-12 pb-10 px-6 text-white overflow-hidden">
+                        {/* Dynamic Background */}
+                        <div className="absolute inset-0 bg-slate-900 -z-10"></div>
+                        <div className={`absolute inset-0 -z-10 transition-opacity duration-1000 ${isDark ? 'opacity-40' : 'opacity-100'}`}
+                             style={{ background: 'radial-gradient(circle at 0% 0%, #0c4a8f 0%, transparent 60%), radial-gradient(circle at 100% 100%, #1e40af 0%, transparent 60%)' }}>
+                        </div>
+                        
+                        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-8">
+                            <div className="opacity-0 animate-slide-in-right">
+                                <div className="flex items-center gap-3 mb-5">
+                                    <div className="bg-white/10 p-2.5 rounded-2xl border border-white/10 backdrop-blur-md">
                                         <i data-lucide="graduation-cap" className="w-6 h-6"></i>
                                     </div>
-                                    <span className="text-[11px] font-black uppercase tracking-[0.2em] opacity-60">SENAI Morvan Figueiredo</span>
+                                    <div className="h-4 w-px bg-white/20 mx-1"></div>
+                                    <span className="text-[11px] font-black uppercase tracking-[0.3em] opacity-60">SENAI Morvan Figueiredo</span>
                                 </div>
-                                <h1 className="text-4xl font-black tracking-tight leading-none mb-2">Pesquisa Social</h1>
-                                <p className="text-sm font-medium opacity-70 tracking-wide translate-x-1 border-l-2 border-white/20 pl-4">
-                                    {d.total} respostas coletadas · {semester === 'all' ? 'Dados Consolidados' : `Semestre ${semester}`}
+                                <h1 className="text-5xl font-black tracking-tighter leading-none mb-3 drop-shadow-2xl">Pesquisa Social</h1>
+                                <p className="text-base font-bold opacity-60 translate-x-1 pl-4 border-l-2 border-white/20">
+                                    Insights 2024–2026 · <span className="text-brand-blue">{d.total}</span> Alunos Analisados
                                 </p>
                             </div>
-                            <div className="flex gap-2">
-                                <button onClick={() => setIsDark(!isDark)} className="p-3 rounded-2xl bg-white/10 hover:bg-white/20 transition-all border border-white/10">
-                                    <i data-lucide={isDark ? "sun" : "moon"} className="w-5 h-5"></i>
+                            
+                            <div className="flex gap-3 self-start md:self-auto opacity-0 animate-fade-in-up stagger-1">
+                                <button onClick={() => setIsDark(!isDark)} className="p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/10 hover:shadow-xl hover:scale-105 group">
+                                    <i data-lucide={isDark ? "sun" : "moon"} className="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
                                 </button>
-                                <button onClick={() => window.print()} className="p-3 rounded-2xl bg-white/10 hover:bg-white/20 transition-all border border-white/10">
+                                <button onClick={() => window.print()} className="p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/10 hover:shadow-xl hover:scale-105 group">
                                     <i data-lucide="printer" className="w-5 h-5"></i>
                                 </button>
                             </div>
                         </div>
-                        <div className="max-w-7xl mx-auto mt-10 flex gap-2">
+
+                        {/* Year Selector Floating */}
+                        <div className="max-w-7xl mx-auto mt-12 flex gap-3 opacity-0 animate-fade-in-up stagger-2">
                             {['all', '2025', '2026'].map(y => (
-                                <button key={y} onClick={() => setSemester(y)} className={`px-6 py-2 rounded-2xl text-[11px] font-black transition-all ${semester === y ? "bg-white text-blue-900 shadow-xl scale-105" : "bg-white/10 hover:bg-white/20 border border-white/10"}`}>
-                                    {y === 'all' ? 'TUDO' : y}
+                                <button key={y} onClick={() => setSemester(y)} className={`px-8 py-3 rounded-2xl text-xs font-black tracking-widest transition-all duration-300 ${
+                                    semester === y ? "bg-white text-blue-900 shadow-[0_0_40px_rgba(255,255,255,0.2)] scale-105" : "bg-white/5 hover:bg-white/10 border border-white/10"
+                                }`}>
+                                    {y === 'all' ? 'DADOS CONSOLIDADOS' : `ANO ${y}`}
                                 </button>
                             ))}
                         </div>
                     </header>
 
-                    <main className="max-w-7xl mx-auto px-6 py-10">
-                        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mb-10">
-                            <KPICard label="Total Alunos" value={d.total} accent={CHART_COLORS.blue} isDark={isDark} />
-                            <KPICard label="M/F Ratio" value={`${d.totalMasculino}/${d.totalFeminino}`} accent={CHART_COLORS.purple} isDark={isDark} />
-                            <KPICard label="Conduções/Dia" value={d.mediaConducoes} accent={CHART_COLORS.orange} isDark={isDark} />
-                            <KPICard label="Transporte Pago" value={d.percentualComCond} suffix="%" accent={CHART_COLORS.teal} isDark={isDark} />
-                            <KPICard label="Idade Média" value={d.idadeMedia} accent={CHART_COLORS.indigo} isDark={isDark} suffix="a" />
-                            <KPICard label="Solteiros" value={d.percentualSolteiros} suffix="%" accent={CHART_COLORS.pink} isDark={isDark} />
+                    {/* Dashboard Body */}
+                    <main className="max-w-7xl mx-auto px-6 -mt-6">
+                        {/* Highlights Row */}
+                        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 mb-12">
+                            <KPICard label="Total Alunos" value={d.total} accent={CHART_COLORS.blue} isDark={isDark} delay="stagger-1" />
+                            <KPICard label="Perfil Sexual" value={`${d.totalMasculino}/${d.totalFeminino}`} accent={CHART_COLORS.purple} isDark={isDark} suffix=" M/F" delay="stagger-2" />
+                            <KPICard label="Eficiência" value={d.mediaConducoes} accent={CHART_COLORS.orange} isDark={isDark} sub="méd. conduções/dia" delay="stagger-3" />
+                            <KPICard label="Dependência" value={d.percentualComCond} suffix="%" accent={CHART_COLORS.cyan} isDark={isDark} sub="transporte pago" delay="stagger-4" />
+                            <KPICard label="Maturação" value={d.idadeMedia} accent={CHART_COLORS.green} isDark={isDark} suffix=" anos" sub="idade média" delay="stagger-5" />
+                            <KPICard label="Civel" value={d.percentualSolteiros} suffix="%" accent={PALETTE[6]} isDark={isDark} sub="estado solteiro" delay="stagger-6" />
                         </div>
 
-                        <SectionHeader icon="bus" title="Transporte" accent={CHART_COLORS.blue} isDark={isDark} />
-                        <div className="grid md:grid-cols-2 gap-6 mb-10">
-                            <ChartCard title="Meios Utilizados" isDark={isDark}>
-                                <div className="h-60 w-full chart-container">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart data={d.transporte} layout="vertical" margin={{ left: 10, right: 40 }}>
-                                            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={gridColor} />
-                                            <XAxis type="number" hide />
-                                            <YAxis dataKey="name" type="category" tick={{ fontSize: 10, fill: tickColor, fontWeight: 700 }} width={80} axisLine={false} tickLine={false} />
-                                            <Tooltip content={<CustomTooltip />} />
-                                            <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
-                                                {d.transporte.map((_, i) => <Cell key={i} fill={PALETTE[i % PALETTE.length]} />)}
-                                                <LabelList dataKey="value" position="right" style={{ fontSize: 11, fill: tickColor, fontWeight: 900 }} />
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer>
+                        {/* Charts Mesh */}
+                        <div className="grid grid-cols-12 gap-6">
+                            
+                            {/* Transporte Left Cluster */}
+                            <div className="col-span-12 lg:col-span-8 flex flex-col gap-6 opacity-0 animate-fade-in-up stagger-3">
+                                <div className="flex items-center gap-3 ml-2">
+                                    <div className="w-1.5 h-6 bg-brand-blue rounded-full"></div>
+                                    <h2 className="text-xl font-black tracking-tight">{semester === 'all' ? 'Mobilidade Urbana Geral' : `Mobilidade em ${semester}`}</h2>
                                 </div>
-                            </ChartCard>
-                            <ChartCard title="Contagem de Conduções" isDark={isDark}>
-                                <div className="h-60 w-full chart-container">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart data={d.conducoes} margin={{ top: 20 }}>
-                                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColor} />
-                                            <XAxis dataKey="name" tick={{ fontSize: 10, fill: tickColor, fontWeight: 700 }} axisLine={false} tickLine={false} />
-                                            <YAxis hide />
-                                            <Tooltip content={<CustomTooltip />} />
-                                            <Bar dataKey="value" fill={CHART_COLORS.orange} radius={[4, 4, 0, 0]} barSize={40}>
-                                                <LabelList dataKey="value" position="top" style={{ fontSize: 11, fill: tickColor, fontWeight: 900 }} />
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer>
+                                
+                                <GlassCard className="p-8">
+                                    <div className="flex items-center justify-between mb-8">
+                                        <div className="flex items-center gap-4">
+                                            <div className="bg-brand-blue/10 p-3 rounded-2xl text-brand-blue"><i data-lucide="bus" className="w-6 h-6"></i></div>
+                                            <div>
+                                                <h3 className="text-sm font-black uppercase tracking-widest text-slate-500">Distribuição de Modais</h3>
+                                                <p className="text-[10px] font-bold text-slate-400">Transporte predominante para chegada ao SENAI</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="h-80 w-full chart-container">
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <BarChart data={d.transporte} layout="vertical" margin={{ left: 20, right: 60, top: 10, bottom: 10 }}>
+                                                <CartesianGrid strokeDasharray="3 3" horizontal={false} vertical stroke={gridColor} />
+                                                <XAxis type="number" hide />
+                                                <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: txtColor, fontWeight: 700 }} width={100} axisLine={false} tickLine={false} />
+                                                <Tooltip content={<CustomTooltip />} cursor={{ fill: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)' }} />
+                                                <Bar dataKey="value" radius={[0, 8, 8, 0]} barSize={28} animationDuration={1500} animationEasing="ease-out">
+                                                    {d.transporte.map((_, i) => <Cell key={i} fill={PALETTE[i % PALETTE.length]} />)}
+                                                    <LabelList dataKey="value" position="right" offset={10} style={{ fontSize: 13, fill: txtColor, fontWeight: 900 }} />
+                                                </Bar>
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                </GlassCard>
+                            </div>
+
+                            {/* Demografia Right Cluster */}
+                            <div className="col-span-12 lg:col-span-4 flex flex-col gap-6 opacity-0 animate-fade-in-up stagger-4">
+                                <div className="flex items-center gap-3 ml-2">
+                                    <div className="w-1.5 h-6 bg-brand-purple rounded-full"></div>
+                                    <h2 className="text-xl font-black tracking-tight">Censo Estudantil</h2>
                                 </div>
-                            </ChartCard>
+
+                                <GlassCard className="p-8 flex-1 flex flex-col">
+                                    <h3 className="text-sm font-black uppercase tracking-widest text-slate-500 mb-8 border-b border-slate-100 dark:border-white/5 pb-4">Gênero e Identidade</h3>
+                                    <div className="flex-1 min-h-[300px]">
+                                        <ResponsiveContainer width="100%" height="100%">
+                                            <PieChart>
+                                                <Pie data={d.sexo} dataKey="value" cx="50%" cy="50%" innerRadius={70} outerRadius={110} paddingAngle={8} stroke="none" animationDuration={1500}>
+                                                    {d.sexo.map((e, i) => <Cell key={i} fill={e.name.includes('Fem') ? CHART_COLORS.green : CHART_COLORS.blue} />)}
+                                                </Pie>
+                                                <Tooltip content={<CustomTooltip />} />
+                                                <Legend content={(p) => <div className="flex flex-col gap-3 mt-8 items-center">{p.payload.map((e,i)=>(<div key={i} className="flex items-center gap-3"><div className="w-3 h-3 rounded-full" style={{backgroundColor: e.color}}></div><span className="text-xs font-black uppercase tracking-widest text-slate-400">{e.value}</span></div>))}</div>} />
+                                            </PieChart>
+                                        </ResponsiveContainer>
+                                    </div>
+                                </GlassCard>
+                            </div>
+
+                            {/* Section: Educação Cluster */}
+                            <div className="col-span-12 opacity-0 animate-fade-in-up stagger-5">
+                                 <div className="flex items-center gap-3 ml-2 mb-6">
+                                    <div className="w-1.5 h-6 bg-brand-cyan rounded-full"></div>
+                                    <h2 className="text-xl font-black tracking-tight">Formação Acadêmica e Residência</h2>
+                                </div>
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <GlassCard className="p-8">
+                                        <h3 className="text-sm font-black uppercase tracking-widest text-slate-500 mb-8">Nível de Escolaridade</h3>
+                                        <div className="h-64 w-full chart-container">
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <BarChart data={d.escolaridade} layout="vertical" margin={{ left: 10, right: 60 }}>
+                                                    <XAxis type="number" hide />
+                                                    <YAxis dataKey="name" type="category" tick={{ fontSize: 10, fill: txtColor, fontWeight: 700 }} width={140} axisLine={false} tickLine={false} />
+                                                    <Bar dataKey="value" fill={CHART_COLORS.purple} radius={[0, 6, 6, 0]} barSize={22} animationDuration={1800}>
+                                                        <LabelList dataKey="value" position="right" offset={10} style={{ fontSize: 11, fill: txtColor, fontWeight: 900 }} />
+                                                    </Bar>
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    </GlassCard>
+
+                                    <GlassCard className="p-8">
+                                        <h3 className="text-sm font-black uppercase tracking-widest text-slate-500 mb-8">Faixa Etária</h3>
+                                        <div className="h-64 w-full chart-container">
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <BarChart data={d.faixaEtaria} margin={{ top: 20 }}>
+                                                    <XAxis dataKey="name" tick={{ fontSize: 11, fill: txtColor, fontWeight: 700 }} axisLine={false} tickLine={false} />
+                                                    <YAxis hide />
+                                                    <Bar dataKey="value" fill={CHART_COLORS.green} radius={[6, 6, 0, 0]} barSize={45} animationDuration={2000}>
+                                                        <LabelList dataKey="value" position="top" offset={10} style={{ fontSize: 12, fill: txtColor, fontWeight: 900 }} />
+                                                    </Bar>
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    </GlassCard>
+                                </div>
+                            </div>
                         </div>
 
-                        <SectionHeader icon="users" title="Demografia" accent={CHART_COLORS.purple} isDark={isDark} />
-                        <div className="grid md:grid-cols-3 gap-6 mb-10">
-                            <ChartCard title="Gênero" isDark={isDark}>
-                                <div className="h-64 w-full">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <PieChart>
-                                            <Pie data={d.sexo} dataKey="value" cx="50%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={5} stroke="none">
-                                                {d.sexo.map((e, i) => <Cell key={i} fill={e.name.includes('Fem') ? CHART_COLORS.green : CHART_COLORS.blue} />)}
-                                            </Pie>
-                                            <Tooltip content={<CustomTooltip />} />
-                                            <Legend content={<CustomLegend />} />
-                                        </PieChart>
-                                    </ResponsiveContainer>
-                                </div>
-                            </ChartCard>
-                            <ChartCard title="Idade" isDark={isDark}>
-                                <div className="h-64 w-full chart-container">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart data={d.faixaEtaria} margin={{ top: 20 }}>
-                                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColor} />
-                                            <XAxis dataKey="name" tick={{ fontSize: 10, fill: tickColor, fontWeight: 700 }} axisLine={false} tickLine={false} />
-                                            <YAxis hide />
-                                            <Tooltip content={<CustomTooltip />} />
-                                            <Bar dataKey="value" fill={CHART_COLORS.purple} radius={[4, 4, 0, 0]} barSize={35}>
-                                                <LabelList dataKey="value" position="top" style={{ fontSize: 11, fill: tickColor, fontWeight: 900 }} />
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer>
-                                </div>
-                            </ChartCard>
-                            <ChartCard title="Ocupação" isDark={isDark}>
-                                <div className="h-64 w-full">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <PieChart>
-                                            <Pie data={d.trabalho} dataKey="value" cx="50%" cy="50%" outerRadius={90} stroke="none" paddingAngle={5}>
-                                                {d.trabalho.map((_, i) => <Cell key={i} fill={PALETTE[i % PALETTE.length]} />)}
-                                            </Pie>
-                                            <Tooltip content={<CustomTooltip />} />
-                                            <Legend content={<CustomLegend />} />
-                                        </PieChart>
-                                    </ResponsiveContainer>
-                                </div>
-                            </ChartCard>
-                        </div>
-
-                        <SectionHeader icon="book-open" title="Educação e Curso" accent={CHART_COLORS.teal} isDark={isDark} />
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <ChartCard title="Cursos" isDark={isDark}>
-                                <div className="h-56 w-full chart-container">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart data={d.cursos} layout="vertical" margin={{ left: 10, right: 50 }}>
-                                            <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke={gridColor} />
-                                            <XAxis type="number" hide />
-                                            <YAxis dataKey="name" type="category" tick={{ fontSize: 9, fill: tickColor, fontWeight: 900 }} width={140} axisLine={false} tickLine={false} />
-                                            <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
-                                                {d.cursos.map((_, i) => <Cell key={i} fill={PALETTE[i % PALETTE.length]} />)}
-                                                <LabelList dataKey="value" position="right" style={{ fontSize: 11, fill: tickColor, fontWeight: 900 }} />
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer>
-                                </div>
-                            </ChartCard>
-                            <ChartCard title="Escolaridade" isDark={isDark}>
-                                <div className="h-56 w-full chart-container">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart data={d.escolaridade} layout="vertical" margin={{ left: 10, right: 50 }}>
-                                            <XAxis type="number" hide />
-                                            <YAxis dataKey="name" type="category" tick={{ fontSize: 9, fill: tickColor, fontWeight: 900 }} width={140} axisLine={false} tickLine={false} />
-                                            <Bar dataKey="value" fill={CHART_COLORS.indigo} radius={[0, 4, 4, 0]} barSize={20}>
-                                                <LabelList dataKey="value" position="right" style={{ fontSize: 11, fill: tickColor, fontWeight: 900 }} />
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer>
-                                </div>
-                            </ChartCard>
-                        </div>
+                        {/* Professional Footer */}
+                        <footer className="mt-24 text-center pb-20 border-t border-slate-200 dark:border-white/5 pt-12">
+                            <div className="flex justify-center gap-6 mb-8 opacity-40">
+                                <i data-lucide="shield-check" className="w-6 h-6"></i>
+                                <i data-lucide="bar-chart-3" className="w-6 h-6"></i>
+                                <i data-lucide="globe" className="w-6 h-6"></i>
+                            </div>
+                            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300 dark:text-slate-700">
+                                © 2026 SENAI Morvan Figueiredo · Sistema de Pesquisa Socioestatística
+                            </p>
+                        </footer>
                     </main>
                 </div>
             );
         }
 
-        const rootElement = document.getElementById('root');
-        const root = ReactDOM.createRoot(rootElement);
-        root.render(<Dashboard />);
+        const rootObj = ReactDOM.createRoot(document.getElementById('root'));
+        rootObj.render(<Dashboard />);
     </script>
 </body>
 </html>
