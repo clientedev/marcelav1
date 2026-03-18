@@ -14,3 +14,161 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * @summary Get alunos overview metrics
+ */
+export const GetAlunosOverviewResponse = zod.object({
+  total: zod.number(),
+  totalMasculino: zod.number(),
+  totalFeminino: zod.number(),
+  mediaConducoes: zod.number(),
+  percentualComCond: zod.number(),
+  percentualTrabalham: zod.number(),
+  idadeMedia: zod.number(),
+  percentualSolteiros: zod.number(),
+});
+
+/**
+ * @summary Distribuição por sexo
+ */
+export const GetAlunosSexoResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosSexoResponse = zod.array(GetAlunosSexoResponseItem);
+
+/**
+ * @summary Distribuição por curso
+ */
+export const GetAlunosCursosResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosCursosResponse = zod.array(GetAlunosCursosResponseItem);
+
+/**
+ * @summary Distribuição por período
+ */
+export const GetAlunosPeriodoResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosPeriodoResponse = zod.array(GetAlunosPeriodoResponseItem);
+
+/**
+ * @summary Distribuição por região
+ */
+export const GetAlunosRegiaoResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosRegiaoResponse = zod.array(GetAlunosRegiaoResponseItem);
+
+/**
+ * @summary Distribuição por faixa etária
+ */
+export const GetAlunosFaixaEtariaResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosFaixaEtariaResponse = zod.array(
+  GetAlunosFaixaEtariaResponseItem,
+);
+
+/**
+ * @summary Distribuição por transporte
+ */
+export const GetAlunosTransporteResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosTransporteResponse = zod.array(
+  GetAlunosTransporteResponseItem,
+);
+
+/**
+ * @summary Distribuição por número de conduções
+ */
+export const GetAlunosConducoesResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosConducoesResponse = zod.array(
+  GetAlunosConducoesResponseItem,
+);
+
+/**
+ * @summary Distribuição por situação escolar
+ */
+export const GetAlunosEscolaridadeResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosEscolaridadeResponse = zod.array(
+  GetAlunosEscolaridadeResponseItem,
+);
+
+/**
+ * @summary Situação de trabalho
+ */
+export const GetAlunosTrabalhoResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosTrabalhoResponse = zod.array(
+  GetAlunosTrabalhoResponseItem,
+);
+
+/**
+ * @summary Tipo de residência
+ */
+export const GetAlunosResidenciaResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosResidenciaResponse = zod.array(
+  GetAlunosResidenciaResponseItem,
+);
+
+/**
+ * @summary Situação financeira
+ */
+export const GetAlunosFinanceiroResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosFinanceiroResponse = zod.array(
+  GetAlunosFinanceiroResponseItem,
+);
+
+/**
+ * @summary Principais dificuldades
+ */
+export const GetAlunosDificuldadesResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosDificuldadesResponse = zod.array(
+  GetAlunosDificuldadesResponseItem,
+);
+
+/**
+ * @summary Condições de saúde
+ */
+export const GetAlunosSaudeResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosSaudeResponse = zod.array(GetAlunosSaudeResponseItem);
+
+/**
+ * @summary Tempo de deslocamento
+ */
+export const GetAlunosDeslocamentoResponseItem = zod.object({
+  name: zod.string(),
+  value: zod.number(),
+});
+export const GetAlunosDeslocamentoResponse = zod.array(
+  GetAlunosDeslocamentoResponseItem,
+);

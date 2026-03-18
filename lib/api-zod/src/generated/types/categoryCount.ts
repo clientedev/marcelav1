@@ -6,6 +6,7 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export * from "./alunosOverview";
-export * from "./categoryCount";
-export * from "./healthStatus";
+export interface CategoryCount {
+  name: string;
+  value: number;
+}

@@ -13,7 +13,11 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type { HealthStatus } from "./api.schemas";
+import type {
+  AlunosOverview,
+  CategoryCount,
+  HealthStatus,
+} from "./api.schemas";
 
 import { customFetch } from "../custom-fetch";
 import type { ErrorType } from "../custom-fetch";
@@ -92,6 +96,1131 @@ export function useHealthCheck<
   request?: SecondParameter<typeof customFetch>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
   const queryOptions = getHealthCheckQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Get alunos overview metrics
+ */
+export const getGetAlunosOverviewUrl = () => {
+  return `/api/alunos/overview`;
+};
+
+export const getAlunosOverview = async (
+  options?: RequestInit,
+): Promise<AlunosOverview> => {
+  return customFetch<AlunosOverview>(getGetAlunosOverviewUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosOverviewQueryKey = () => {
+  return [`/api/alunos/overview`] as const;
+};
+
+export const getGetAlunosOverviewQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosOverview>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosOverview>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosOverviewQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosOverview>>
+  > = ({ signal }) => getAlunosOverview({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosOverview>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosOverviewQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosOverview>>
+>;
+export type GetAlunosOverviewQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Get alunos overview metrics
+ */
+
+export function useGetAlunosOverview<
+  TData = Awaited<ReturnType<typeof getAlunosOverview>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosOverview>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosOverviewQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Distribuição por sexo
+ */
+export const getGetAlunosSexoUrl = () => {
+  return `/api/alunos/sexo`;
+};
+
+export const getAlunosSexo = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosSexoUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosSexoQueryKey = () => {
+  return [`/api/alunos/sexo`] as const;
+};
+
+export const getGetAlunosSexoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosSexo>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosSexo>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosSexoQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAlunosSexo>>> = ({
+    signal,
+  }) => getAlunosSexo({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosSexo>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosSexoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosSexo>>
+>;
+export type GetAlunosSexoQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Distribuição por sexo
+ */
+
+export function useGetAlunosSexo<
+  TData = Awaited<ReturnType<typeof getAlunosSexo>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosSexo>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosSexoQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Distribuição por curso
+ */
+export const getGetAlunosCursosUrl = () => {
+  return `/api/alunos/cursos`;
+};
+
+export const getAlunosCursos = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosCursosUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosCursosQueryKey = () => {
+  return [`/api/alunos/cursos`] as const;
+};
+
+export const getGetAlunosCursosQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosCursos>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosCursos>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosCursosQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAlunosCursos>>> = ({
+    signal,
+  }) => getAlunosCursos({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosCursos>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosCursosQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosCursos>>
+>;
+export type GetAlunosCursosQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Distribuição por curso
+ */
+
+export function useGetAlunosCursos<
+  TData = Awaited<ReturnType<typeof getAlunosCursos>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosCursos>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosCursosQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Distribuição por período
+ */
+export const getGetAlunosPeriodoUrl = () => {
+  return `/api/alunos/periodo`;
+};
+
+export const getAlunosPeriodo = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosPeriodoUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosPeriodoQueryKey = () => {
+  return [`/api/alunos/periodo`] as const;
+};
+
+export const getGetAlunosPeriodoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosPeriodo>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosPeriodo>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosPeriodoQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosPeriodo>>
+  > = ({ signal }) => getAlunosPeriodo({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosPeriodo>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosPeriodoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosPeriodo>>
+>;
+export type GetAlunosPeriodoQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Distribuição por período
+ */
+
+export function useGetAlunosPeriodo<
+  TData = Awaited<ReturnType<typeof getAlunosPeriodo>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosPeriodo>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosPeriodoQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Distribuição por região
+ */
+export const getGetAlunosRegiaoUrl = () => {
+  return `/api/alunos/regiao`;
+};
+
+export const getAlunosRegiao = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosRegiaoUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosRegiaoQueryKey = () => {
+  return [`/api/alunos/regiao`] as const;
+};
+
+export const getGetAlunosRegiaoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosRegiao>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosRegiao>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosRegiaoQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAlunosRegiao>>> = ({
+    signal,
+  }) => getAlunosRegiao({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosRegiao>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosRegiaoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosRegiao>>
+>;
+export type GetAlunosRegiaoQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Distribuição por região
+ */
+
+export function useGetAlunosRegiao<
+  TData = Awaited<ReturnType<typeof getAlunosRegiao>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosRegiao>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosRegiaoQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Distribuição por faixa etária
+ */
+export const getGetAlunosFaixaEtariaUrl = () => {
+  return `/api/alunos/faixa-etaria`;
+};
+
+export const getAlunosFaixaEtaria = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosFaixaEtariaUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosFaixaEtariaQueryKey = () => {
+  return [`/api/alunos/faixa-etaria`] as const;
+};
+
+export const getGetAlunosFaixaEtariaQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosFaixaEtaria>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosFaixaEtaria>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosFaixaEtariaQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosFaixaEtaria>>
+  > = ({ signal }) => getAlunosFaixaEtaria({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosFaixaEtaria>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosFaixaEtariaQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosFaixaEtaria>>
+>;
+export type GetAlunosFaixaEtariaQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Distribuição por faixa etária
+ */
+
+export function useGetAlunosFaixaEtaria<
+  TData = Awaited<ReturnType<typeof getAlunosFaixaEtaria>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosFaixaEtaria>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosFaixaEtariaQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Distribuição por transporte
+ */
+export const getGetAlunosTransporteUrl = () => {
+  return `/api/alunos/transporte`;
+};
+
+export const getAlunosTransporte = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosTransporteUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosTransporteQueryKey = () => {
+  return [`/api/alunos/transporte`] as const;
+};
+
+export const getGetAlunosTransporteQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosTransporte>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosTransporte>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosTransporteQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosTransporte>>
+  > = ({ signal }) => getAlunosTransporte({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosTransporte>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosTransporteQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosTransporte>>
+>;
+export type GetAlunosTransporteQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Distribuição por transporte
+ */
+
+export function useGetAlunosTransporte<
+  TData = Awaited<ReturnType<typeof getAlunosTransporte>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosTransporte>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosTransporteQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Distribuição por número de conduções
+ */
+export const getGetAlunosConducoesUrl = () => {
+  return `/api/alunos/conducoes`;
+};
+
+export const getAlunosConducoes = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosConducoesUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosConducoesQueryKey = () => {
+  return [`/api/alunos/conducoes`] as const;
+};
+
+export const getGetAlunosConducoesQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosConducoes>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosConducoes>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosConducoesQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosConducoes>>
+  > = ({ signal }) => getAlunosConducoes({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosConducoes>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosConducoesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosConducoes>>
+>;
+export type GetAlunosConducoesQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Distribuição por número de conduções
+ */
+
+export function useGetAlunosConducoes<
+  TData = Awaited<ReturnType<typeof getAlunosConducoes>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosConducoes>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosConducoesQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Distribuição por situação escolar
+ */
+export const getGetAlunosEscolaridadeUrl = () => {
+  return `/api/alunos/escolaridade`;
+};
+
+export const getAlunosEscolaridade = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosEscolaridadeUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosEscolaridadeQueryKey = () => {
+  return [`/api/alunos/escolaridade`] as const;
+};
+
+export const getGetAlunosEscolaridadeQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosEscolaridade>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosEscolaridade>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosEscolaridadeQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosEscolaridade>>
+  > = ({ signal }) => getAlunosEscolaridade({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosEscolaridade>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosEscolaridadeQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosEscolaridade>>
+>;
+export type GetAlunosEscolaridadeQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Distribuição por situação escolar
+ */
+
+export function useGetAlunosEscolaridade<
+  TData = Awaited<ReturnType<typeof getAlunosEscolaridade>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosEscolaridade>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosEscolaridadeQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Situação de trabalho
+ */
+export const getGetAlunosTrabalhoUrl = () => {
+  return `/api/alunos/trabalho`;
+};
+
+export const getAlunosTrabalho = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosTrabalhoUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosTrabalhoQueryKey = () => {
+  return [`/api/alunos/trabalho`] as const;
+};
+
+export const getGetAlunosTrabalhoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosTrabalho>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosTrabalho>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosTrabalhoQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosTrabalho>>
+  > = ({ signal }) => getAlunosTrabalho({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosTrabalho>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosTrabalhoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosTrabalho>>
+>;
+export type GetAlunosTrabalhoQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Situação de trabalho
+ */
+
+export function useGetAlunosTrabalho<
+  TData = Awaited<ReturnType<typeof getAlunosTrabalho>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosTrabalho>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosTrabalhoQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Tipo de residência
+ */
+export const getGetAlunosResidenciaUrl = () => {
+  return `/api/alunos/residencia`;
+};
+
+export const getAlunosResidencia = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosResidenciaUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosResidenciaQueryKey = () => {
+  return [`/api/alunos/residencia`] as const;
+};
+
+export const getGetAlunosResidenciaQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosResidencia>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosResidencia>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosResidenciaQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosResidencia>>
+  > = ({ signal }) => getAlunosResidencia({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosResidencia>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosResidenciaQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosResidencia>>
+>;
+export type GetAlunosResidenciaQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Tipo de residência
+ */
+
+export function useGetAlunosResidencia<
+  TData = Awaited<ReturnType<typeof getAlunosResidencia>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosResidencia>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosResidenciaQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Situação financeira
+ */
+export const getGetAlunosFinanceiroUrl = () => {
+  return `/api/alunos/financeiro`;
+};
+
+export const getAlunosFinanceiro = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosFinanceiroUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosFinanceiroQueryKey = () => {
+  return [`/api/alunos/financeiro`] as const;
+};
+
+export const getGetAlunosFinanceiroQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosFinanceiro>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosFinanceiro>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosFinanceiroQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosFinanceiro>>
+  > = ({ signal }) => getAlunosFinanceiro({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosFinanceiro>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosFinanceiroQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosFinanceiro>>
+>;
+export type GetAlunosFinanceiroQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Situação financeira
+ */
+
+export function useGetAlunosFinanceiro<
+  TData = Awaited<ReturnType<typeof getAlunosFinanceiro>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosFinanceiro>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosFinanceiroQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Principais dificuldades
+ */
+export const getGetAlunosDificuldadesUrl = () => {
+  return `/api/alunos/dificuldades`;
+};
+
+export const getAlunosDificuldades = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosDificuldadesUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosDificuldadesQueryKey = () => {
+  return [`/api/alunos/dificuldades`] as const;
+};
+
+export const getGetAlunosDificuldadesQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosDificuldades>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosDificuldades>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosDificuldadesQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosDificuldades>>
+  > = ({ signal }) => getAlunosDificuldades({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosDificuldades>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosDificuldadesQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosDificuldades>>
+>;
+export type GetAlunosDificuldadesQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Principais dificuldades
+ */
+
+export function useGetAlunosDificuldades<
+  TData = Awaited<ReturnType<typeof getAlunosDificuldades>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosDificuldades>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosDificuldadesQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Condições de saúde
+ */
+export const getGetAlunosSaudeUrl = () => {
+  return `/api/alunos/saude`;
+};
+
+export const getAlunosSaude = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosSaudeUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosSaudeQueryKey = () => {
+  return [`/api/alunos/saude`] as const;
+};
+
+export const getGetAlunosSaudeQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosSaude>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosSaude>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosSaudeQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAlunosSaude>>> = ({
+    signal,
+  }) => getAlunosSaude({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosSaude>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosSaudeQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosSaude>>
+>;
+export type GetAlunosSaudeQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Condições de saúde
+ */
+
+export function useGetAlunosSaude<
+  TData = Awaited<ReturnType<typeof getAlunosSaude>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosSaude>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosSaudeQueryOptions(options);
+
+  const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
+    queryKey: QueryKey;
+  };
+
+  return { ...query, queryKey: queryOptions.queryKey };
+}
+
+/**
+ * @summary Tempo de deslocamento
+ */
+export const getGetAlunosDeslocamentoUrl = () => {
+  return `/api/alunos/deslocamento`;
+};
+
+export const getAlunosDeslocamento = async (
+  options?: RequestInit,
+): Promise<CategoryCount[]> => {
+  return customFetch<CategoryCount[]>(getGetAlunosDeslocamentoUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+export const getGetAlunosDeslocamentoQueryKey = () => {
+  return [`/api/alunos/deslocamento`] as const;
+};
+
+export const getGetAlunosDeslocamentoQueryOptions = <
+  TData = Awaited<ReturnType<typeof getAlunosDeslocamento>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosDeslocamento>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}) => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAlunosDeslocamentoQueryKey();
+
+  const queryFn: QueryFunction<
+    Awaited<ReturnType<typeof getAlunosDeslocamento>>
+  > = ({ signal }) => getAlunosDeslocamento({ signal, ...requestOptions });
+
+  return { queryKey, queryFn, ...queryOptions } as UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosDeslocamento>>,
+    TError,
+    TData
+  > & { queryKey: QueryKey };
+};
+
+export type GetAlunosDeslocamentoQueryResult = NonNullable<
+  Awaited<ReturnType<typeof getAlunosDeslocamento>>
+>;
+export type GetAlunosDeslocamentoQueryError = ErrorType<unknown>;
+
+/**
+ * @summary Tempo de deslocamento
+ */
+
+export function useGetAlunosDeslocamento<
+  TData = Awaited<ReturnType<typeof getAlunosDeslocamento>>,
+  TError = ErrorType<unknown>,
+>(options?: {
+  query?: UseQueryOptions<
+    Awaited<ReturnType<typeof getAlunosDeslocamento>>,
+    TError,
+    TData
+  >;
+  request?: SecondParameter<typeof customFetch>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } {
+  const queryOptions = getGetAlunosDeslocamentoQueryOptions(options);
 
   const query = useQuery(queryOptions) as UseQueryResult<TData, TError> & {
     queryKey: QueryKey;

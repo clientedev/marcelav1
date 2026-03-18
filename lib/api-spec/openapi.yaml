@@ -1,6 +1,5 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
   description: API specification
@@ -10,6 +9,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: alunos
+    description: Alunos dashboard data
 paths:
   /healthz:
     get:
@@ -24,6 +25,214 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /alunos/overview:
+    get:
+      operationId: getAlunosOverview
+      tags: [alunos]
+      summary: Get alunos overview metrics
+      responses:
+        "200":
+          description: Overview data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlunosOverview"
+  /alunos/sexo:
+    get:
+      operationId: getAlunosSexo
+      tags: [alunos]
+      summary: Distribuição por sexo
+      responses:
+        "200":
+          description: Sexo data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/cursos:
+    get:
+      operationId: getAlunosCursos
+      tags: [alunos]
+      summary: Distribuição por curso
+      responses:
+        "200":
+          description: Cursos data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/periodo:
+    get:
+      operationId: getAlunosPeriodo
+      tags: [alunos]
+      summary: Distribuição por período
+      responses:
+        "200":
+          description: Periodo data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/regiao:
+    get:
+      operationId: getAlunosRegiao
+      tags: [alunos]
+      summary: Distribuição por região
+      responses:
+        "200":
+          description: Regiao data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/faixa-etaria:
+    get:
+      operationId: getAlunosFaixaEtaria
+      tags: [alunos]
+      summary: Distribuição por faixa etária
+      responses:
+        "200":
+          description: Faixa etaria data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/transporte:
+    get:
+      operationId: getAlunosTransporte
+      tags: [alunos]
+      summary: Distribuição por transporte
+      responses:
+        "200":
+          description: Transporte data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/conducoes:
+    get:
+      operationId: getAlunosConducoes
+      tags: [alunos]
+      summary: Distribuição por número de conduções
+      responses:
+        "200":
+          description: Conducoes data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/escolaridade:
+    get:
+      operationId: getAlunosEscolaridade
+      tags: [alunos]
+      summary: Distribuição por situação escolar
+      responses:
+        "200":
+          description: Escolaridade data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/trabalho:
+    get:
+      operationId: getAlunosTrabalho
+      tags: [alunos]
+      summary: Situação de trabalho
+      responses:
+        "200":
+          description: Trabalho data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/residencia:
+    get:
+      operationId: getAlunosResidencia
+      tags: [alunos]
+      summary: Tipo de residência
+      responses:
+        "200":
+          description: Residencia data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/financeiro:
+    get:
+      operationId: getAlunosFinanceiro
+      tags: [alunos]
+      summary: Situação financeira
+      responses:
+        "200":
+          description: Financeiro data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/dificuldades:
+    get:
+      operationId: getAlunosDificuldades
+      tags: [alunos]
+      summary: Principais dificuldades
+      responses:
+        "200":
+          description: Dificuldades data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/saude:
+    get:
+      operationId: getAlunosSaude
+      tags: [alunos]
+      summary: Condições de saúde
+      responses:
+        "200":
+          description: Saude data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
+  /alunos/deslocamento:
+    get:
+      operationId: getAlunosDeslocamento
+      tags: [alunos]
+      summary: Tempo de deslocamento
+      responses:
+        "200":
+          description: Deslocamento data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoryCount"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +242,41 @@ components:
           type: string
       required:
         - status
-
+    CategoryCount:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: number
+      required:
+        - name
+        - value
+    AlunosOverview:
+      type: object
+      properties:
+        total:
+          type: number
+        totalMasculino:
+          type: number
+        totalFeminino:
+          type: number
+        mediaConducoes:
+          type: number
+        percentualComCond:
+          type: number
+        percentualTrabalham:
+          type: number
+        idadeMedia:
+          type: number
+        percentualSolteiros:
+          type: number
+      required:
+        - total
+        - totalMasculino
+        - totalFeminino
+        - mediaConducoes
+        - percentualComCond
+        - percentualTrabalham
+        - idadeMedia
+        - percentualSolteiros
